@@ -49,20 +49,30 @@ do
   if [ "_$oldip" = "_" ]; then
     oldip="unknown"
     allrecords=$(curl -4 -s "$api_url/get_domain_records.xml" -d token=$token -d domain=$domain -d subdomain=$subdomain)
-    record=$(echo $allrecords | sed -r 's/.+domain=\"?'"$hostname"'"?[^>]+type="A"//' | sed 's/<\/record.*//')
-#    echo "Found record: $record"
-    record_id=$(echo "$record" | sed -r 's/(^.*\id=\")|(\">.*)//g')
-#    echo "record_id=$record_id"
-    setip=$(echo "$record" | sed -r 's/.*>//g')
-    echo "Remote IP: $setip"
-    if [ "_$setip" != "_$oldip" ]; then
-      echo "$record_id:$currentip" > "$previous_file"
-      oldip=$setip
+    message=$(echo "$allrecords" | grep error | sed -r 's/(^.*<error>)|(<\/error>.*$)//g')
+    if [ "_$message" = "_ok" ]; then
+      logger -i -t "$tag" "$hostname:$currentip"
+      record=$(echo $allrecords | sed -r 's/.+domain=\"?'"$hostname"'"?[^>]+type="A"//' | sed 's/<\/record.*//')
+#      echo "Found record: $record"
+      previous_id=$record_id
+      record_id=$(echo "$record" | sed -r 's/(^.*\id=\")|(\">.*)//g')
+#      echo "record_id=$record_id"
+      setip=$(echo "$record" | sed -r 's/.*>//g')
+      echo "Remote IP: $setip"
+      if [ "_$setip" != "_$oldip" ] || [ "_$record_id" != "_$previous_id"]; then
+        echo "$record_id:$currentip" > "$previous_file"
+        oldip=$setip
+      fi
+    else
+      logmsg="Error getting DNS records: $message"
+      logger -i -t $tag "$logmsg"
+      echo $logmsg
+      exit $retval
     fi
   fi
 
   if [ "_$record_id" = "_" ]; then
-    logmsg = "record_id is unknown; exit"
+    logmsg="record_id is unknown; exit"
     logger -i -t $tag "$logmsg"
     echo $logmsg
     exit $retval
@@ -80,6 +90,10 @@ do
     if [ "_$message" = "_ok" ]; then
       logger -i -t "$tag" "$hostname:$currentip"
       echo "$record_id:$currentip" > "$previous_file"
+    else
+      logmsg="Error updating DNS record: $message"
+      logger -i -t $tag "$logmsg"
+      echo $logmsg
     fi
   else
     logmsg="$hostname: old IP same as current IP: $currentip; not updating"
