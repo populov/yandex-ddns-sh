@@ -1,4 +1,4 @@
-## pdd.ya.ru Linux/OS X dDNS updater
+# pdd.ya.ru Linux/OS X dDNS updater
 
 A very basic shell script updater for dynamic DNS services provided by <http://pdd.yandex.ru>. 
 
@@ -16,6 +16,7 @@ License: MIT.<br />Warranty: None.
 ### Notes
  * Works both for primary domain (*example.com*) and subdomains (*foo.example.com*, *foo.bar.example.com*).
  * "A" record for *hostname* must exist before you run this script.
+ * Using wget. You can uncomment 3 lines, using curl instead.
 
 Enjoy!
 
