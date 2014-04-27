@@ -1,4 +1,4 @@
-# pdd.yandex.ru Linux/OS X dDNS updater
+## pdd.ya.ru Linux/OS X dDNS updater
 
 A very basic shell script updater for dynamic DNS services provided by <http://pdd.yandex.ru>. 
 
