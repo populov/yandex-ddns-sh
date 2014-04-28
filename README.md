@@ -18,7 +18,7 @@ A very basic shell script updater for dynamic DNS services provided by <http://p
  * DNS "A" record for *hostname* must exist before you run this script.
  * **yapdate.sh** is a simplier script, but won't work behind router.
 
-**License**: [WTFPL](http://www.wtfpl.net) или [MIT](http://opensource.org/licenses/MIT).<br />**Warranty**: None.
+**License**: [WTFPL](http://www.wtfpl.net) or [MIT](http://opensource.org/licenses/MIT).<br />**Warranty**: None.
 
 Enjoy!
 
