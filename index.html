@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Yandex dDNS updater by populov</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/populov/yandex-ddns-sh">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/populov/yandex-ddns-sh/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/populov/yandex-ddns-sh/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Yandex dDNS updater</h1>
+          <p>pdd.yandex.ru dynamic DNS client (Linux &amp; OS X)</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/populov">populov</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a name="dns-updater-shell-script-for-linux--os-x" class="anchor" href="#dns-updater-shell-script-for-linux--os-x"><span class="octicon octicon-link"></span></a>DNS updater shell script for Linux &amp; OS X</h1>
+
+<p><a href="https://github.com/populov/yandex-ddns-sh/wiki/README.ru">По-русски / In Russian</a></p>
+
+<p>A very basic shell script updater for dynamic DNS services provided by <a href="http://pdd.yandex.ru">http://pdd.yandex.ru</a>. </p>
+
+<h2>
+<a name="instructions" class="anchor" href="#instructions"><span class="octicon octicon-link"></span></a>Instructions:</h2>
+
+<ol>
+<li>Get <strong>token</strong> at <a href="https://pddimp.yandex.ru/token/index.xml">Token management</a> page. See <a href="http://api.yandex.ru/pdd/doc/reference/api-dns_get_token.xml">Yandex API manual</a> for details.</li>
+<li>Edit <strong>ya.ddns.update.sh</strong> in a text editor, and modify the <em>hostname</em>, and <em>token</em> fields.</li>
+<li>If desired, set <code>$use_ifconfig='yes'</code> and <code>$iface='eth0'</code>. Otherwise, the script will use <a href="http://checkip.dns.he.net">http://checkip.dns.he.net</a> to determine your public IP address.</li>
+<li>If necessary, <code>chmod +x ya.ddns.update.sh</code>.</li>
+<li>Run <strong>ya.ddns.update.sh</strong>.</li>
+<li>Use system's cron to schedule the updates. Or LaunchDaemon. Whatever floats your boat.</li>
+</ol><h3>
+<a name="notes" class="anchor" href="#notes"><span class="octicon octicon-link"></span></a>Notes</h3>
+
+<ul>
+<li>Works both for primary domain (<em>example.com</em>) and subdomains (<em>foo.example.com</em>, <em>foo.bar.example.com</em>).</li>
+<li>DNS "A" record for <em>hostname</em> must exist before you run this script.</li>
+<li>
+<strong>yapdate.sh</strong> is a simplier script, but won't work behind router.</li>
+</ul><p><strong>License</strong>: MIT (<a href="http://www.wtfpl.net/">WTFPL</a>, actually).<br><strong>Warranty</strong>: None.</p>
+
+<p>Enjoy!</p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
