@@ -2,7 +2,7 @@
 
 api_url="https://pddimp.yandex.ru/nsapi"
 ttl=3600
-previous_file_prefix=/tmp/dyndns
+previous_file_prefix=/tmp/ddns
 tag=ru.yandex.ddns
 
 retval=0
@@ -49,46 +49,54 @@ do
 
   if [ "_$oldip" = "_" ]; then
     oldip="unknown"
-#    allrecords=$(curl -4 -s "$api_url/get_domain_records.xml" -d token=$token -d domain=$domain -d subdomain=$subdomain)
-    allrecords=$(wget -qO- "$api_url/get_domain_records.xml?token=$token&domain=$domain&subdomain=$subdomain")
-    message=$(echo "$allrecords" | grep error | sed -r 's/(^.*<error>)|(<\/error>.*$)//g')
+#    getrecords=$(curl -4 -s "$api_url/get_domain_records.xml" -d token=$token -d domain=$domain -d subdomain=$subdomain)
+    getrecords=$(wget -qO- "$api_url/get_domain_records.xml?token=$token&domain=$domain&subdomain=$subdomain")
+    getRetval=$?
+    if [ $getRetval -eq 0 ]; then
+      message=$(echo "$getrecords" | grep error | sed -r 's/(^.*<error>)|(<\/error>.*$)//g')
+    else
+      message="HTTP error"
+    fi
     if [ "_$message" = "_ok" ]; then
-      logger -i -t "$tag" "$hostname:$currentip"
-      record=$(echo $allrecords | sed -r 's/.+domain=\"?'"$hostname"'"?[^>]+type="A"//' | sed 's/<\/record.*//')
-#      echo "Found record: $record"
+      domaintest="domain=\"?$hostname\"?[^>]+type=\"?A\"?[^<]+"
+      records=$(echo "$getrecords" | grep -E $domaintest)
+      if [ "_$records" = "_" ]; then
+        logmsg="$hostname DNS \"A\" record not found; skip"
+        logger -i -t $tag "$logmsg"
+        echo $logmsg
+        continue
+      fi
+      record=$(echo $records | sed -r 's/.+domain=\"?'"$hostname"'"?[^>]+type="A"//' | sed 's/<\/record.*//')
       previous_id=$record_id
       record_id=$(echo "$record" | sed -r 's/(^.*\id=\")|(\">.*)//g')
 #      echo "record_id=$record_id"
-      setip=$(echo "$record" | sed -r 's/.*>//g')
-      echo "$hostname remote IP: $setip"
-      if [ "_$setip" != "_$oldip" ] || [ "_$record_id" != "_$previous_id"]; then
-        echo "$record_id:$currentip" > "$previous_file"
-        oldip=$setip
+      remoteip=$(echo "$record" | sed -r 's/.*>//g')
+      echo "$hostname remote IP: $remoteip"
+      if [ "_$remoteip" != "_$oldip" ] || [ "_$record_id" != "_$previous_id"]; then
+        logger -i -t "$tag" "Remote: $hostname:$remoteip"
+        echo "$record_id:$remoteip" > "$previous_file"
+        oldip=$remoteip
       fi
     else
       logmsg="Error getting $domain DNS records: $message"
       logger -i -t $tag "$logmsg"
       echo $logmsg
-      exit $retval
+      continue
     fi
-  fi
-
-  if [ "_$record_id" = "_" ]; then
-    logmsg="record_id is unknown; exit"
-    logger -i -t $tag "$logmsg"
-    echo $logmsg
-    exit $retval
   fi
 
   if [ "_$currentip" != "_$oldip" ]; then
     logmsg="$hostname: old IP: $oldip; current IP: $currentip; updating..."
     logger -i -t $tag "$logmsg"
     echo $logmsg
-#    result1=$(curl -4 -s "$api_url/edit_a_record.xml" -d token=$token -d domain=$domain -d subdomain=$subdomain -d record_id=$record_id -d ttl=$ttl -d content=$currentip)
-    result1=$(wget -qO- "$api_url/edit_a_record.xml?token=$token&domain=$domain&subdomain=$subdomain&record_id=$record_id&ttl=$ttl&content=$currentip")
-    retval1=$?
-#    echo "Retval = $retval1 Result: $result1"
-    message=$(echo "$result1" | grep error | sed -r 's/(^.*<error>)|(<\/error>.*$)//g')
+#    editResult=$(curl -4 -s "$api_url/edit_a_record.xml" -d token=$token -d domain=$domain -d subdomain=$subdomain -d record_id=$record_id -d ttl=$ttl -d content=$currentip)
+    editResult=$(wget -qO- "$api_url/edit_a_record.xml?token=$token&domain=$domain&subdomain=$subdomain&record_id=$record_id&ttl=$ttl&content=$currentip")
+    editRetval=$?
+    if [ $editRetval -eq 0 ]; then
+      message=$(echo "$editResult" | grep error | sed -r 's/(^.*<error>)|(<\/error>.*$)//g')
+    else
+      message="HTTP error"
+    fi
     if [ "_$message" = "_ok" ]; then
       echo "$hostname: updated"
       logger -i -t "$tag" "$hostname:$currentip"
@@ -102,11 +110,11 @@ do
     logmsg="$hostname: old IP same as current IP: $currentip; not updating"
 #    logger -i -t $tag "$logmsg"
     echo $logmsg
-    retval1=0
+    editRetval=0
   fi
 
   retval=`bc <<EOF
-    $retval1 + $retval
+    $editRetval + $retval
 EOF
 `
 
