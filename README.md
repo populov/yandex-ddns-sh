@@ -1,5 +1,6 @@
-# pdd.ya.ru Linux/OS X dDNS updater
-[По-русски / In Russian](https://github.com/populov/yandex-ddns-sh/wiki/README.ru)
+# Yandex dDNS updater
+### Dynamic DNS client for pdd.yandex.ru (Linux & OS X)
+[По-русски / In Russian](README.ru.md)
 
 A very basic shell script updater for dynamic DNS services provided by <http://pdd.yandex.ru>. 
 
@@ -17,7 +18,7 @@ A very basic shell script updater for dynamic DNS services provided by <http://p
  * DNS "A" record for *hostname* must exist before you run this script.
  * **yapdate.sh** is a simplier script, but won't work behind router.
 
-**License**: MIT ([WTFPL](http://www.wtfpl.net/), actually).<br />**Warranty**: None.
+**License**: [WTFPL](http://www.wtfpl.net) или [MIT](http://opensource.org/licenses/MIT).<br />**Warranty**: None.
 
 Enjoy!
 
