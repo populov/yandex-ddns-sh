@@ -1,4 +1,5 @@
 # pdd.ya.ru Linux/OS X dDNS updater
+[По-русски / In Russian](https://github.com/populov/yandex-ddns-sh/wiki/README.ru)
 
 A very basic shell script updater for dynamic DNS services provided by <http://pdd.yandex.ru>. 
 
@@ -11,13 +12,12 @@ A very basic shell script updater for dynamic DNS services provided by <http://p
  5. Run **ya.ddns.update.sh**.
  6. Use system's cron to schedule the updates. Or LaunchDaemon. Whatever floats your boat.
 
-License: MIT.<br />Warranty: None.
-
 ### Notes
  * Works both for primary domain (*example.com*) and subdomains (*foo.example.com*, *foo.bar.example.com*).
- * "A" record for *hostname* must exist before you run this script.
- * Using wget. You can uncomment 3 lines, using curl instead.
+ * DNS "A" record for *hostname* must exist before you run this script.
  * **yapdate.sh** is a simplier script, but won't work behind router.
+
+**License**: MIT ([WTFPL](http://www.wtfpl.net/), actually).<br />**Warranty**: None.
 
 Enjoy!
 
