@@ -1,4 +1,5 @@
 #!/bin/bash
+# https://github.com/populov/yandex-ddns-bash
 
 api_url="https://pddimp.yandex.ru/nsapi"
 ttl=3600

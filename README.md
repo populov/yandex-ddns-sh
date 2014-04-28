@@ -17,6 +17,7 @@ License: MIT.<br />Warranty: None.
  * Works both for primary domain (*example.com*) and subdomains (*foo.example.com*, *foo.bar.example.com*).
  * "A" record for *hostname* must exist before you run this script.
  * Using wget. You can uncomment 3 lines, using curl instead.
+ * **yapdate.sh** is a simplier script, but won't work behind router.
 
 Enjoy!
 
