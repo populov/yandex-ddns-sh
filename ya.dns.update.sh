@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # https://github.com/populov/yandex-ddns-bash
 
 api_url="https://pddimp.yandex.ru/nsapi"
@@ -26,7 +26,7 @@ do
 #  echo "Domain: $domain"
 
   currentip=''
-  if [ "$use_ifconfig" == "yes" ]; then
+  if [ "$use_ifconfig" = "yes" ]; then
     if which ip >/dev/null 2>&1; then
       currentip=$(ip addr show dev "$iface" | grep inet\ .*scope\ global | sed -E 's/[^0-9]*([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})\/[0-9]{1,2}.*/\1/g')
     elif which ifconfig >/dev/null 2>&1; then
