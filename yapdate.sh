@@ -1,5 +1,5 @@
 #!/bin/sh
-# https://github.com/populov/yandex-ddns-bash
+# http://projects.populov.com/yandex-ddns-sh/
 
 domain=example.com
 subdomain=foo  # @ for primary domain
