@@ -49,7 +49,7 @@
 <a name="instructions" class="anchor" href="#instructions"><span class="octicon octicon-link"></span></a>Instructions:</h2>
 
 <ol>
-<li>Get <strong>token</strong> at <a href="https://pddimp.yandex.ru/token/index.xml">Token management</a> page. See <a href="http://api.yandex.ru/pdd/doc/reference/api-dns_get_token.xml">Yandex API manual</a> for details.</li>
+<li>Get <strong>token</strong> at <a href="https://pddimp.yandex.ru/api2/admin/get_token">Token management</a> page. See <a href="http://api.yandex.com/domain/doc/concepts/access.xml">Yandex API manual</a> for details.</li>
 <li>Edit <strong>ya.ddns.update.sh</strong> in a text editor, and modify the <em>hostname</em>, and <em>token</em> fields.</li>
 <li>If desired, set <code>$use_ifconfig='yes'</code> and <code>$iface='eth0'</code>. Otherwise, the script will use <a href="http://checkip.dns.he.net">http://checkip.dns.he.net</a> to determine your public IP address.</li>
 <li>If necessary, <code>chmod +x ya.ddns.update.sh</code>.</li>

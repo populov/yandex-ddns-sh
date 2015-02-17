@@ -49,7 +49,7 @@
 <a name="instructions" class="anchor" href="#instructions"><span class="octicon octicon-link"></span></a>Инструкция:</h2>
 
 <ol>
-<li>Получите <strong>token</strong> на странице <a href="https://pddimp.yandex.ru/token/index.xml">Token management</a>. Подробности в <a href="http://api.yandex.ru/pdd/doc/reference/api-dns_get_token.xml">руководстве по Yandex API</a>.</li>
+<li>Получите <strong>token</strong> на странице <a href="https://pddimp.yandex.ru/api2/admin/get_token">Token management</a>. Подробности в <a href="https://tech.yandex.ru/pdd/doc/concepts/access-docpage/">руководстве по Yandex API</a>.</li>
 <li>Откройте <strong>ya.ddns.update.sh</strong> в любом текстовом редакторе, установите <em>hostname</em> и <em>token</em>.</li>
 <li>Можете установить <code>$use_ifconfig='yes'</code> и <code>$iface='eth0'</code>. Иначе скрипт будет получать внешний IP адрес при помощи сервиса <a href="http://checkip.dns.he.net">http://checkip.dns.he.net</a>.</li>
 <li>Чтобы сделать файл исполняемым, выполните <code>chmod +x ya.ddns.update.sh</code> (если нужно).</li>
