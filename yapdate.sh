@@ -3,8 +3,8 @@
 
 domain=example.com
 subdomain=foo  # @ for primary domain
-token=TOKEN    #see http://api.yandex.ru/pdd/doc/reference/api-dns_get_token.xml
-record_id=ID   #see http://api.yandex.ru/pdd/doc/reference/api-dns_get_domain_records.xml
+token=TOKEN    #see https://tech.yandex.ru/pdd/doc/concepts/access-docpage/
+record_id=ID   #see https://tech.yandex.ru/pdd/doc/reference/dns-list-docpage/
 ttl=900
 iface=eth0
 cache_file=/tmp/ddns.ip.txt
